@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css"/>
+    <title>Document</title>
+</head>
+<body>
+    <div class="main-contact">
+        <h1>{{title}}</h1>
+        <p>use this site to find definitions, synonyms and antonyms</p>
+        <form>
+            <input placeholder="Enter word"/>
+            <button id="search-btn">search</button>
+            {{!-- <button id="random-btn">generate random word</button> --}}
+        </form>
+
+        <p id="message-1"></p>
+        <p id="message-2"></p>
+        <p id="message-3"></p>
+    </div>
+
+    <footer>
+        <p>created by {{name}}</p>
+    </footer>    
+    <script src="/js/app.js" defer></script>
+</body>
+</html>
