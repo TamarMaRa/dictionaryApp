@@ -3,6 +3,8 @@ console.log("client side js file loaded");
 const search = document.querySelector("input");
 const searchBtn = document.getElementById("search-btn");
 const randomBtn = document.getElementById("random-btn");
+const translateBtn = document.getElementById("translate-btn");
+
 const input = document.getElementById("input-search");
 const messageOne = document.getElementById("message-1");
 const messageTwo = document.getElementById("message-2");
@@ -33,7 +35,7 @@ searchBtn.addEventListener("click", (e) => {
 
 randomBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  
+
   input.setAttribute("placeholder", "loading...");
   messageOne.textContent = "";
   messageTwo.textContent = "";
@@ -49,3 +51,21 @@ randomBtn.addEventListener("click", (e) => {
     });
   });
 });
+
+translateBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const word = input.value;
+   fetch("http://localhost:3001/api/translate?word=" + word).then((response) => {
+    response.json().then((data) => {
+    if (data.error) {
+        return   messageOne.textContent = data.error;
+
+    } else {
+          messageOne.textContent = data.translation;
+    }
+    })
+   })
+});
+
+
