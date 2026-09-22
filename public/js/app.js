@@ -19,14 +19,12 @@ searchBtn.addEventListener("click", (e) => {
       if (data.error) {
         return (messageOne.textContent = data.error);
       }
-      let synonyms = data.synonyms !== "" ? data.synonyms : "no results";
-      let antonyms = data.antonyms !== "" ? data.antonyms : "no results";
+
+      let synonyms = data.synonyms.length !== 0 ? data.synonyms : "no results";
+      let antonyms = data.antonyms.length !== 0 ? data.antonyms : "no results";
       messageOne.textContent = "definition: " + data.definition;
       messageTwo.textContent = "synonyms: " + synonyms;
       messageThree.textContent = "antonyms: " + antonyms;
     });
   });
 });
-
-//const x = y===z? yes: no
-//(data.synonyms !== "" ? data.synonyms : "no results")
