@@ -9,7 +9,7 @@ const randomWord = (callback) => {
       callback("unable to connect to random word api", undefined);
     } else {
       callback(undefined, {
-        randomWord: body.word,
+        randomWord: body[0].word,
       });
     }
   });

@@ -38,7 +38,16 @@ app.get("/word", (req, res) => {
   });
 });
 
-//onclick function () => geneate word
+app.get("/random", (req, res) => {
+  randomWord((error, randomWord) => {
+    if (error) {
+      return res.send({ error });
+    }
+    res.send({
+      randomWord,
+    });
+  });
+});
 
 app.listen(3001, () => {
   console.log("server on port 3001");
