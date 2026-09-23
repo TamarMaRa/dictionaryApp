@@ -1,18 +1,19 @@
-const request = require("request");
+const axios = require("axios");
 
 const randomWord = (callback) => {
   const url =
     "https://random-words-api.kushcreates.com/api?language=en&words=1";
 
-  request({ url, json: true }, (error, { body }) => {
-    if (error) {
-      callback("unable to connect to random word api", undefined);
-    } else {
+  axios
+    .get(url)
+    .then((res) => {
       callback(undefined, {
-        randomWord: body[0].word,
+        randomWord: res.data[0].word,
       });
-    }
-  });
+    })
+    .catch((error) => {
+      callback("unable to connect to random word api", undefined);
+    });
 };
 
 module.exports = randomWord;

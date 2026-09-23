@@ -48,7 +48,7 @@ randomBtn.addEventListener("click", (e) => {
       if (data.error) {
         return (messageOne.textContent = data.error);
       }
-      
+
       input.value = data.randomWord.randomWord;
     });
   });
@@ -62,7 +62,7 @@ translateBtn.addEventListener("click", (e) => {
   messages.append("word2", messageTwo.textContent);
   messages.append("word3", messageThree.textContent);
 
-  fetch("http://localhost:3001/api/translate?" + messages.toString(), {
+  fetch("http://localhost:3001/translate?" + messages.toString(), {
     method: "GET",
   }).then((response) => {
     response.json().then((data) => {

@@ -51,7 +51,7 @@ app.get("/random", (req, res) => {
   });
 });
 
-app.get("/api/translate", (req, res) => {
+app.get("/translate", (req, res) => {
   translate(req.query, (error, { translation } = {}) => {
     if (error) {
       return res.send({ error });

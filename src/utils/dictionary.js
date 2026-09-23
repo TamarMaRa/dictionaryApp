@@ -1,24 +1,29 @@
-const request = require("request");
+const axios = require("axios");
 
 const dictionary = (searchWord, callback) => {
   const url =
     "https://freedictionaryapi.com/api/v1/entries/en/" +
     encodeURIComponent(searchWord);
 
-  request({ url, json: true }, (error, { body }) => {
-    if (error) {
-      callback("unable to connect to dictionary", undefined);
-    } else if (body.entries.length === 0) {
-      callback("word doesnt exists, try another search", undefined);
-    } else {
-      const dir = body.entries[0].senses[0];
+  axios
+    .get(url)
+    .then((res) => {
+      if (res.data.entries.length === 0) {
+        return callback(
+          "word doesnt exists in my dictionary, try another search",
+          undefined,
+        );
+      }
+      const dir = res.data.entries[0].senses[0];
       callback(undefined, {
         definition: dir.definition,
         synonyms: dir.synonyms,
         antonyms: dir.antonyms,
       });
-    }
-  });
+    })
+    .catch((error) => {
+      callback("unable to connect to dictionary", undefined);
+    });
 };
 
 module.exports = dictionary;
