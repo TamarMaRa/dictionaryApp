@@ -1,12 +1,9 @@
 const path = require("path");
 const express = require("express");
 const app = express();
-const cors = require("cors");
 const dictionary = require("./utils/dictionary");
 const randomWord = require("./utils/randomWord");
 const translate = require("./utils/translate");
-const { text } = require("stream/consumers");
-const { error } = require("console");
 
 const publicDirPath = path.join(__dirname, "../public");
 const viewsPath = path.join(__dirname, "../templates");
@@ -14,13 +11,12 @@ const viewsPath = path.join(__dirname, "../templates");
 app.set("view engine", "hbs");
 app.set("views", viewsPath);
 app.use(express.static(publicDirPath));
-app.use(cors());
-app.use(express.json());
 
 app.get("", (req, res) => {
   res.render("index", {
     title: "Dictionary app",
     name: "Tamara Aldubi",
+    description: "use this site to find definitions, synonyms and antonyms",
   });
 });
 

@@ -48,7 +48,7 @@ randomBtn.addEventListener("click", (e) => {
       if (data.error) {
         return (messageOne.textContent = data.error);
       }
-
+      
       input.value = data.randomWord.randomWord;
     });
   });
