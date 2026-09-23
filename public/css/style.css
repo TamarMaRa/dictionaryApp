@@ -33,3 +33,7 @@ h1 {
 .error {
     color: red;
 }
+
+#translate-btn {
+    display: none;
+}

@@ -1,6 +1,5 @@
 console.log("client side js file loaded");
 
-const search = document.querySelector("input");
 const searchBtn = document.getElementById("search-btn");
 const randomBtn = document.getElementById("random-btn");
 const translateBtn = document.getElementById("translate-btn");
@@ -13,10 +12,11 @@ const messageThree = document.getElementById("message-3");
 searchBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
-  const searchWord = search.value;
+  const searchWord = input.value;
   messageOne.textContent = "loading...";
   messageTwo.textContent = "";
   messageThree.textContent = "";
+  translateBtn.style.display = "none";
 
   fetch("http://localhost:3001/word?word=" + searchWord).then((response) => {
     response.json().then((data) => {
@@ -29,6 +29,7 @@ searchBtn.addEventListener("click", (e) => {
       messageOne.textContent = "definition: " + data.definition;
       messageTwo.textContent = "synonyms: " + synonyms;
       messageThree.textContent = "antonyms: " + antonyms;
+      translateBtn.style.display = "inline";
     });
   });
 });
@@ -40,6 +41,7 @@ randomBtn.addEventListener("click", (e) => {
   messageOne.textContent = "";
   messageTwo.textContent = "";
   messageThree.textContent = "";
+  translateBtn.style.display = "none";
 
   fetch("http://localhost:3001/random").then((response) => {
     response.json().then((data) => {
@@ -55,17 +57,23 @@ randomBtn.addEventListener("click", (e) => {
 translateBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
-  const word = input.value;
-   fetch("http://localhost:3001/api/translate?word=" + word).then((response) => {
+  const messages = new URLSearchParams();
+  messages.append("word1", messageOne.textContent);
+  messages.append("word2", messageTwo.textContent);
+  messages.append("word3", messageThree.textContent);
+
+  fetch("http://localhost:3001/api/translate?" + messages.toString(), {
+    method: "GET",
+  }).then((response) => {
     response.json().then((data) => {
-    if (data.error) {
-        return   messageOne.textContent = data.error;
-
-    } else {
-          messageOne.textContent = data.translation;
-    }
-    })
-   })
+      if (data.error) {
+        return (messageOne.textContent = data.error);
+      } else {
+        messageOne.textContent = data.translation[0].text;
+        messageTwo.textContent = data.translation[1].text;
+        messageThree.textContent = data.translation[2].text;
+        translateBtn.style.display = "none";
+      }
+    });
+  });
 });
-
-

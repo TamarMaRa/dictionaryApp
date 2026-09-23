@@ -56,14 +56,14 @@ app.get("/random", (req, res) => {
 });
 
 app.get("/api/translate", (req, res) => {
-    translate(req.query.word, (error, {translation} = {}) => {
-           if (error) {
+  translate(req.query, (error, { translation } = {}) => {
+    if (error) {
       return res.send({ error });
     }
     res.send({
       translation,
-    }); 
-    })
+    });
+  });
 });
 
 app.listen(3001, () => {
